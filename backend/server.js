@@ -1,7 +1,11 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import productRoutes from './routes/products.js';
+dotenv.config();
 
 const app = express();
 app.use(express.json());
+
 
 
 app.get("/",(req,res)=>{
@@ -15,9 +19,11 @@ app.get("/",(req,res)=>{
             "message": "Internal Server Error"
         })
     }
-})
+});
 
-const PORT = 9001;
+app.use("/api/products",productRoutes);
+
+const PORT = process.env.PORT || 9001;
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
