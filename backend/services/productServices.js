@@ -14,7 +14,6 @@ function getAllProducts(){
 function getProductWithIDService(id){
     for(let i=0; i<products.length; i++){
         if(products[i].id===Number(id)){
-            console.log("Product found with id", id);
             return(products[i])
         }
     }
