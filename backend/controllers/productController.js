@@ -3,13 +3,13 @@ import {getAllProducts, getProductWithIDService} from "../services/productServic
 
 async function listProducts(req,res){
 
-    const products = getAllProducts();
+    const products = await getAllProducts();
     res.status(200).json(products);
 }
 
 async function getProductWithID(req,res){
     const productID = req.params.id;
-    const product = getProductWithIDService(Number(productID));
+    const product = await getProductWithIDService(Number(productID));
     if(product){
         res.status(200).json(product);
     }

@@ -1,3 +1,4 @@
+import pool from '../config/db.js';
 const products = [
     { id: 1, name: "Keyboard", price: 50, stock:12},
     {id: 2, name: "Mouse", price: 25, stock: 30},
@@ -5,18 +6,15 @@ const products = [
 ]
 
 
-function getAllProducts(){
-    const p = products;
-    return(p);
+async function getAllProducts(){
+    const [rows] = await pool.query('SELECT * FROM products WHERE is_active = ?',[true]);
+    console.log(rows);
+    return rows;
 }
 
 
-function getProductWithIDService(id){
-    for(let i=0; i<products.length; i++){
-        if(products[i].id===Number(id)){
-            return(products[i])
-        }
-    }
-    return(false);
+async function getProductWithIDService(id){
+    const [rows] = await pool.query('SELECT * FROM products WHERE id = ? and is_active = ?',[id,true]);
+    return rows[0];
 }
 export {getAllProducts, getProductWithIDService};
